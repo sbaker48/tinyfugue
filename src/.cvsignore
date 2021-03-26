@@ -1,0 +1,14 @@
+config.h
+tfdefs.h
+Makefile
+exitmsg
+tf
+tf-old
+*.tf
+.gdbinit
+tf.1
+tf.1.catman
+makehelp
+gmon.out
+gprof.out
+.*.swp
