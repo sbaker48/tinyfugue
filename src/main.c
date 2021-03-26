@@ -155,6 +155,9 @@ int main(int argc, char *argv[])
     init_output();			/* output.c   */
     init_attrs();			/* attr.c     */
     init_keyboard();			/* keyboard.c */
+#ifdef HAVE_SQLITE3
+    init_sqlite();                      /* sqlite.c   */
+#endif /* HAVE_SQLITE3 */
 
     oputs(version);
     oputs(copyright);

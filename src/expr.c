@@ -1533,6 +1533,38 @@ static Value *function_switch(const ExprFunc *func, int n, const char *parent)
             return newSstr(CS(Sstr));
 	  }
 
+#ifdef HAVE_SQLITE3
+        case FN_dbopen:
+            return newint(handle_dbopen_func(opdstd(1)));
+        
+        case FN_dbclose:
+            return newint(handle_dbclose_func(opdstd(1)));
+
+        case FN_dbfinalize:
+            return newint(handle_dbfinalize_func(opdstd(1)));
+
+        case FN_dbreset:
+            return newint(handle_dbreset_func(opdstd(1)));
+
+        case FN_dbstep:
+            return newint(handle_dbstep_func(opdstd(1)));
+
+        case FN_dbprepare:
+            return newint(handle_dbprepare_func(opdstd(2), opdstd(1)));
+
+        case FN_dbbind: {
+            int rc;
+            int i;
+            for (i=1; i<n; i++) {
+                rc = handle_dbbind_func(opdstd(n), n-i, opdstd(i));
+                if (rc != 0) {
+                    return newint(rc);
+                }
+            }
+            return newint(0);
+        }
+#endif /* HAVE_SQLITE3 */
+  
         default:
             eprintf("not supported");
             return NULL;
